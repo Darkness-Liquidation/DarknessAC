@@ -36,7 +36,6 @@ administration tools, themes, punishments, and integrations.
 - Java 17 or newer to run the plugin.
 - A Paper-compatible server. Folia is supported.
 - A valid Darkness license. Set it in `plugins/Darkness/config.yml` after the first start.
-- JDK 21 or newer if you build the project from source.
 
 ### Installation
 
@@ -51,6 +50,8 @@ administration tools, themes, punishments, and integrations.
 
 - Prediction-based checks for movement, combat, reach, velocity, inventory, scaffold, timer,
   elytra, vehicles, packets, and more.
+- TrustFactor player reputation system with dynamic setback scaling and database persistence.
+- Automatic configuration migrations preserving user comments and custom thresholds.
 - Packet and exploit protection against invalid packets, crash attempts, suspicious client data,
   blink-like behaviour, and other protocol abuse.
 - Information-hiding tools that can spoof selected client-visible data and help reduce cheat-client
@@ -86,6 +87,23 @@ legitimately perform and compares incoming actions against that model.
   checks aim to make invalid movement mathematically distinguishable rather than relying on
   obscurity alone.
 
+### TrustFactor system
+
+Darkness tracks player trust across sessions to dynamically scale mitigation and setbacks:
+
+- **Trust scoring.** Players hold a trust score (0 to 100) calculated inversely from accumulated
+  trust points. Fewer violation points mean higher trust.
+- **Trust tiers:**
+  - `GREEN` (0-100 points): Trusted. Soft setbacks (`GRIM`) minimise false-positive disruption.
+  - `ORANGE` (101-350 points): Suspicious. Moderate setbacks (`GRIM_AIR`) with air mitigations.
+  - `RED` (> 350 points): Untrusted. Hard setbacks (`DARKNESS`) with immediate position correction.
+- **Dynamic setbacks.** Checks configured with `setback_type: TRUST` automatically scale their
+  setback severity to the player's active trust tier.
+- **Database storage.** Trust levels persist across server restarts and network proxies via async
+  batch logging to SQLite, MySQL, or PostgreSQL.
+- **Placeholders.** PlaceholderAPI and punishment messages support `%trust_score%`,
+  `%trust_points%`, `%trust_level%`, `%trust_color%`, `%trust_type%`, and `%trust_banned%`.
+
 ### Developer API
 
 Darkness provides a plugin API for integrations with custom plugins and server systems. It can be
@@ -102,6 +120,8 @@ this repository:
 - [`config/en.yml`](src/main/resources/config/en.yml) — general settings, alerts, client protection,
   Discord, logging, punishments, and integrations.
 - [`checks/en.yml`](src/main/resources/checks/en.yml) — individual anti-cheat checks and thresholds.
+- [`hider/en.yml`](src/main/resources/hider/en.yml) — Information Hider settings, packet-level ESP
+  mitigation, and client data obfuscation.
 - [`punishments/en.yml`](src/main/resources/punishments/en.yml) — violation punishment rules.
 - [`themes/`](src/main/resources/themes) — alert and message themes.
 
@@ -133,6 +153,8 @@ and the remaining names are aliases. Restart the server after changing this sett
 | `/darkness perf` or `/darkness performance` | Toggle performance metrics. |
 | `/darkness lag` | Show server resource and lag information. |
 | `/darkness menu` | Open the main Darkness GUI. |
+| `/darkness themes` | Open the themes selection GUI. |
+| `/darkness logs [player] [page]` | View violation logs in GUI or inspect a player's logs. |
 | `/darkness reload` | Reload the Darkness configuration. |
 | `/darkness sendalert <message>` | Send a custom staff alert. |
 | `/darkness bot [player]` | Spawn a test bot around yourself or a selected player. |
@@ -141,56 +163,38 @@ and the remaining names are aliases. Restart the server after changing this sett
 | `/darkness knockback <player> [back]` or `/darkness kb <player> [back]` | Run a knockback test. |
 | `/darkness totem <player>` | Run the AutoTotem check. |
 | `/darkness rotate <player>` | Rotate a player as a staff action. |
-| `/darkness shuffle <player> <one|many>` | Shuffle a player's inventory slots. |
-| `/darkness addpoint <player>` | Add a punishment point to a player. |
-| `/darkness resetpoints <player>` | Reset a player's punishment points. |
+| `/darkness shuffle <player> <one/many>` | Shuffle a player's inventory slots. |
 | `/darkness punish <player> [reason]` | Apply the configured punishment. |
-| `/darkness ban <player> [reason]` | Ban a player using the configured command. |
 | `/darkness kick <player> [reason]` | Kick a player. |
 | `/darkness crash <player> <method>` | Run a configured client stress-test method. Available suggestions: `entity`, `explosion`, `position`, `particle`, `sound`, `loadworld`, `demo`, `fakelag`, `black`, `multi`, `inverse`, `chunk`. |
+| `/darkness trust <add/remove/set/clear/info> <player> [points]` | Manage or inspect a player's TrustFactor score and level. |
 
 ### Information Hider
 
-Information Hider is configured through the InformationHider section in config.yml. It changes
-selected data sent to the client, reducing information exposed to cheat
-modules. Test options with your gameplay, resource packs, scoreboards, and other plugins.
+Information Hider is configured through its dedicated configuration file `hider.yml` (bundled as
+`hider/en.yml`). It obfuscates packet data sent to clients, preventing cheat modules from gathering
+extra information and concealing players behind obstacles on the network level.
 
 | Settings | What they do |
 | --- | --- |
 | enabled; onlyForPlayers | Enable the module and limit it to player entities. |
-| parts.health.value; random | Send a configured health value from 0 to 20, optionally randomised. Value 0 can disrupt client animations and is not recommended for normal gameplay. |
-| parts.xp; air; saturation | Hide experience, air, and food-saturation values. |
+| parts.health.value; random | Send a configured health value from 0 to 20, optionally randomised. Value 0 can disrupt client animations and is not recommended for normal gameplay. Set to -1 to disable. |
+| parts.xp; air; saturation; absorption | Hide experience, air, food saturation, and absorption golden hearts. |
 | parts.ping; gamemode; seed | Mask tab-list ping, game mode, and world-seed data. |
 | parts.scoreboard.enabled; patterns | Mask health values in matching scoreboards and the tab list. Patterns identify health-related objectives; this module is disabled when health value is -1. |
 | parts.enchant; item_count; item_name; item_drop; durability | Mask enchantments, quantities, names, dropped-item details, and durability. |
-| parts.potion; end_effect | Hide potion effects and send misleading effect packets to reduce the usefulness of cheat effect lists. |
-| parts.esp_tracer.enabled; spawn_tab | Create invisible client-side decoy players for ESP tracers and boxes, optionally also in the tab list. |
+| parts.potion; potion_items; end_effect | Hide potion effects and potion types in hand/arrows, and send misleading effect packets to clutter cheat potion lists. |
+| parts.server_brand.enabled; brand | Spoof the server brand string visible on Minecraft's F3 debug screen. |
+| parts.esp.enabled; max_distance; max_fov; proximity_distance | Conceal players behind walls and obstacles at packet level to defeat ESP, Tracers, and Wallhack. Includes FOV and distance filtering. |
+| parts.esp.hide_delay_ticks; interval_ticks; only_sneaking | Tune raytracing calculation intervals, corner-peeking delay, and sneaking-only filtering to optimize server performance. |
+| parts.esp.effects; ignored_blocks; disabled_worlds | Customize blindness/darkness/invisibility hiding rules, transparent/passable block exceptions, and disabled worlds. |
 | parts.inventory | Shuffle items while moving to disrupt AutoTotem and InvWalk-style automation. |
 | parts.chest_loot | Briefly hide container contents when opened to disrupt ChestStealer-style automation. |
-| parts.totem.enabled; spawn_tab | Enable client-side fake totem-pop decoys and choose whether they appear in tab. |
-| parts.totem.mode | Use always for random combat decoys or on_totem to react to a nearby real totem pop. |
-| parts.totem.totem_chance; bots; height | Configure chance in always mode, plus decoy count and vertical offset in on_totem mode. High chance values increase network and client load. |
-| parts.fake_staff.enabled; only_random_name | Create client-side staff decoys; random-only names can improve compatibility but may be easier for some lists to filter. |
-| parts.fake_staff.roles; bots | Configure displayed staff prefixes and the number of staff decoys. |
+| parts.totem.enabled; mode; amount; spawn_tab; height | Disrupt cheat TotemPopCounters via duplicate pop packets or fake bots spawned underground. |
+| parts.fake_staff.enabled; only_random_name; roles; bots | Create client-side fake staff members in tab to prevent cheats from tracking real moderators. |
 | parts.spectators.allowed_worlds; hide_spectators | Restrict spectator hiding to listed worlds, and hide players with darkness.spectator permission, including those not currently spectating. |
 
-### Building from source
-
-```bash
-git clone https://github.com/1hendex/Darkness-Liquidation.git
-cd Darkness-Liquidation
-./gradlew shadowJar
-```
-
-On Windows, use `gradlew.bat shadowJar`. The shaded plugin JAR is written to:
-
-```text
-build/libs/Darkness.jar
-```
-
 ### Support and credits
-
-Source code: [GitHub — recode branch](https://github.com/1hendex/Darkness-Liquidation/tree/recode)
 
 - Community and support: [Darkness Liquidation Discord](https://dsc.gg/darkness-liquidation)
 - Bug reports: include the Darkness version, server software and version, Java version, relevant
