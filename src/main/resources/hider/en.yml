@@ -1,0 +1,223 @@
+# +----------------------------------------------------------------------------------------------+
+# |                                                                                              |
+# |                                       Darkness Liquidation                                   |
+# |                                                                                              |
+# |                               Discord: https://dsc.gg/darkness-liquidation                   |
+# |                                                                                              |
+# |                                 Authors: 1hendex x clopdisabler                              |
+# |                                                                                              |
+# +----------------------------------------------------------------------------------------------+
+
+## InformationHider Check
+InformationHider:
+
+  # Enable the info-hiding module?
+  enabled: true
+
+  # Check only players or all entities?
+  onlyForPlayers: true
+
+  # Hides data about players/mobs to block cheat clients from getting extra info.
+  # Regular players won't notice, but cheats will suffer.
+  parts:
+    # Spoofs health - players and mobs always show spoofed health
+    # Useful against health bars in mods and cheats
+    health:
+      # Specify the value Darkness should spoof for players from 0 to 20.
+      # A value of 0 will break many KillAura hacks, but also breaks walking animations.
+      # Not recommended if you don't want players to walk like they're "moonwalking".
+      # Set to -1 to completely disable this module
+      value: 20
+      # If enabled, a random value from 0 to 20 will be used.
+      # Less noticeable to players and better preserves gameplay.
+      random: false
+
+    # Mask internal player data to prevent cheat modules from utilizing it.
+    # Hides the real experience level to prevent it from being displayed in cheats.
+    xp: true
+    # Hides the oxygen level to prevent cheats from displaying the exact amount of air.
+    air: true
+    # Hides the hunger level. Breaks AutoEat functions in cheat clients.
+    saturation: true
+    # Hides absorption golden hearts from golden apples and status effects.
+    absorption: true
+    # Hides the real ping in the tab list. Prevents certain bypasses in AntiBot modules.
+    ping: true
+    # Hides the game mode. Cheats will always see the player in Creative.
+    gamemode: true
+    # Sends a spoofed world seed to prevent cheats from locating ores and structures.
+    seed: true
+
+    # Hides health and statistics data from scoreboards and the tab list.
+    # Replaces real HP values in the player list with fake ones.
+    scoreboard:
+      # Should health be masked in scoreboards and the tab list?
+      # If InformationHider.parts.health.value is set to -1, this module will be disabled.
+      enabled: true
+      # List of scoreboard objective name patterns to intercept.
+      # Darkness looks for these keywords in objective names to identify where HP is displayed.
+      patterns:
+        - "health"
+        - "hp"
+        - "hearts"
+        - "TAB-BelowName"
+        - "TAB-Sidebar"
+        - "TAB-TabList"
+
+    # Masks equipment and character visual effects.
+    # Hides enchantments on armor and items so cheats cannot see their type or level.
+    enchant: true
+    # Hides the exact count of items in hands and inventory.
+    item_count: true
+    # Replaces actual item names in hands with randomized ones.
+    item_name: true
+    # Hides the names and quantities of items dropped on the ground.
+    item_drop: true
+    # Always shows full item durability to prevent cheats from seeing armor wear.
+    durability: true
+    # Hides potion effects from others (prevents seeing Strength, Speed, etc.).
+    potion: true
+    # Hides the potion type in hands, offhand, or arrows.
+    potion_items: true
+    # Spams the cheat with spoofed effect packets, completely cluttering its PotionList with trash.
+    end_effect: true
+
+    # Modifies the server brand on Minecraft’s debug screen (F3).
+    # Useful for displaying custom messages or hiding your server software.
+    server_brand:
+      # Enable server brand spoofing?
+      enabled: true
+      # Brand name visible to clients upon connection and on the F3 screen
+      brand: "Server"
+
+    # Conceals players behind walls and blocks on the packet level.
+    # Breaks ESP, Tracers, and Wallhack functionality in cheat clients.
+    #
+    # PERFORMANCE:
+    # - In enclosed spaces (caves, arenas), this module REDUCES network and server load
+    #   because it stops sending movement packets for hidden players.
+    # - With a HIGH concentration of players in one area, block visibility checks
+    #   can cause increased CPU load.
+    esp:
+
+      # Should players be hidden behind obstacles?
+      enabled: true
+      # Maximum distance (in blocks) at which player visibility is checked.
+      # Lower values reduce server load.
+      max_distance: 48.0
+      # Horizontal field of view (in degrees) used to decide whether a player is on screen.
+      # Increase this for ultrawide monitors; 180 disables sideways FOV misses.
+      max_fov: 165.0
+      # Safe radius (in blocks) around the player where everyone is always visible.
+      # Helps avoid rendering delay when a player suddenly peeks around a corner.
+      proximity_distance: 3.0
+      # Delay before hiding a player behind a wall (in ticks).
+      # Prevents model flickering around corners and smoothes out ping latency.
+      hide_delay_ticks: 5
+      # How often to recalculate player visibility (in ticks).
+      # Lower values decrease performance, higher values may cause
+      # players to remain hidden for too long and suddenly pop up.
+      interval_ticks: 2
+      # Should sound effects from players hidden behind walls be concealed?
+      hide_sounds: false
+      # Should glowing outlines be stripped from players behind walls?
+      hide_glowing: false
+      # Controls hiding behavior related to potion effects.
+      effects:
+        # Should players be hidden while the viewer has the blindness?
+        blindness: true
+        # Should players be hidden while the viewer has the darkness?
+        darkness: true
+        # Should players with invisibility effect be hidden from ESP when they have no held items and no armor?
+        # Potion swirl particles are still shown so vanilla visibility mechanics remain intact.
+        invisible: true
+      # Calculate line of sight for 3rd person camera perspectives (F5)?
+      # Prevents players from disappearing when peeking around corners.
+      calculate_third_person_modes: true
+      # By default, vanilla nametags are visible through walls unless sneaking.
+      # Setting this to false will hide all players behind walls regardless of sneaking.
+      # Setting this to true hides only sneaking players - saves CPU and preserves nametags.
+      only_sneaking: false
+      # List of blocks that players will not be hidden behind.
+      ignored_blocks:
+        - "barrier"
+        - "anvil"
+        - "air"
+        - "glass"
+        - "pane"
+        - "water"
+        - "bubble_column"
+        - "leaves"
+        - "fence"
+        - "trapdoor"
+        - "door"
+        - "lily_pad"
+        - "web"
+        - "ladder"
+        - "iron_bars"
+        - "bell"
+        - "slime_block"
+        - "honey_block"
+        - "ice"
+
+      # List of worlds where this module will be completely disabled.
+      disabled_worlds:
+        - ""
+
+    # Shuffles inventory items while moving, breaking AutoTotem and InvWalk features in cheats.
+    inventory: true
+    # Momentarily hides all items when opening a container.
+    # Breaks ChestStealer logic by tricking the cheat into thinking it's closing an empty chest.
+    chest_loot: true
+
+    # Spams the cheat with fake totem pop packets.
+    # This breaks totem pop notifications in cheat clients.
+    totem:
+
+      # Whether to break TotemPopCounter in cheats.
+      enabled: true
+      # Module mode:
+      # 1. duplicate - sends duplicate pop packets for the same player.
+      # 2. bot - spawns fake players underground at the moment of the pop.
+      mode: duplicate
+      # The number of fake packets or bots created per totem pop.
+      # Higher values create more screen clutter for the cheater and break software detection logic.
+      amount: 1
+      # Should fake bots be spawned in the tab list?
+      # If set to false, bots will only spawn in the world without disturbing legit players.
+      # Cheats will still detect totem pops, but bots won't clutter the tab list.
+      # Only works if mode is set to BOT.
+      spawn_tab: true
+      # Specifies how many blocks below the player the fake totem bot will spawn.
+      # Only works if mode is set to BOT.
+      height: 15
+
+    # This module creates fake staff members in the tab list to hide real moderators from cheats.
+    # Don’t worry these bots exist only on the cheat client side, real players can’t see them.
+    fake_staff:
+      # Should we create fake bots to mask real staff members?
+      enabled: true
+      # If true, Darkness will always generate bots with random names.
+      # Helps with compatibility on some servers but can sometimes bypass StaffList checks.
+      only_random_name: false
+      # Specify the real staff prefixes that will be shown on fake bots.
+      roles:
+        - "&cAdmin"
+        - "&cStaff"
+        - "&cHelper"
+        - "&cModer"
+      # Recommended to set bots >= 60 to prevent cheats from detecting real moderators.
+      bots: 60
+
+    # Spectator settings (requires permission: darkness.spectator)
+    spectators:
+      # Only hide spectators in these worlds. Leave empty to allow all worlds
+      allowed_worlds:
+        - ""
+      # Hide all spectators with darkness.spectator permission, regardless of activity.
+      hide_spectators: true
+
+hider:
+  checks_updates: true
+  lang: en
+  version: 1

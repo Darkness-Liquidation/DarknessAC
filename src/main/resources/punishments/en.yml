@@ -105,7 +105,7 @@ Punishments:
       - '1:1 [proxy]'
       - '1:1 [log]'
       - '1:0 darkness rotate %player%'
-      - '2:0 darkness ban %player% &cYou were banned for suspected cheating.'
+      - '2:0 ban %player% &cYou were banned for suspected cheating.'
 
   Chat:
     remove_violations_after: 300
@@ -117,7 +117,7 @@ Punishments:
       - '1:1 [server]'
       - '1:1 [log]'
       - '4:0 darkness punish %player% &cYou were kicked for suspected cheating.'
-      - '8:0 darkness ban %player% &cYou were banned for suspected cheating.'
+      - '8:0 ban %player% &cYou were banned for suspected cheating.'
 
   AutoClicker:
     remove_violations_after: 300
@@ -187,7 +187,7 @@ Punishments:
       - '2:3 [webhook]'
       - '2:3 [server]'
       - '4:0 darkness punish %player% &cYou were kicked for suspected cheating.'
-      - '6:0 darkness ban %player% &cYou were banned for suspected cheating.'
+      - '6:0 ban %player% &cYou were banned for suspected cheating.'
 
   Timer:
     remove_violations_after: 70
@@ -200,7 +200,7 @@ Punishments:
       - '2:5 [log]'
       - '1:1 [proxy]'
       - '20:0 darkness punish %player% &cYou were kicked for suspected cheating.'
-      - '30:0 darkness ban %player% &cYou were banned for suspected cheating.'
+      - '30:0 ban %player% &cYou were banned for suspected cheating.'
 
   NoFall:
     remove_violations_after: 300
@@ -285,7 +285,7 @@ Punishments:
       - '1:2 [log]'
       - '1:2 [webhook]'
       - '1:2 [server]'
-      - '1:0 darkness ban %player% &cYou were banned for suspected cheating.'
+      - '1:0 ban %player% &cYou were banned for suspected cheating.'
 
   Crash:
     remove_violations_after: 360
@@ -299,9 +299,9 @@ Punishments:
       - '1:3 [proxy]'
       - '1:3 [log]'
       - '1:0 darkness crash %player% position'
-      - '1:0 darkness ban %player% &cYou were kicked for suspected cheating.'
+      - '1:0 ban %player% &cYou were kicked for suspected cheating.'
 
 punishments:
   checks_updates: true
   lang: en
-  version: 4
+  version: 5

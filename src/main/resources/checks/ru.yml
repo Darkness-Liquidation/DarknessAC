@@ -50,9 +50,6 @@ Aim:
   b: true
 
   # Should we enable this module?
-  c: true
-
-  # Should we enable this module?
   d: true
 
   # Should we enable this module?
@@ -68,9 +65,6 @@ Aim:
 
   # Should we enable this module?
   g: true
-
-  # Should we enable this module?
-  h: true
 
   # Should we enable this module?
   i: true
@@ -121,6 +115,7 @@ Aim:
   x: true
 
   # Список возможных типов сетбека:
+  # TRUST (Динамический сетбек на основе trust factor),
   # INVENTORY_CLOSE, ELYTRA_CLOSE, NCP, DARKNESS,
   # CANCEL_ATTACK, GRIM, FOOD, DAMAGE_REDUCE, NONE
   #
@@ -253,14 +248,14 @@ KillAura:
     # 2. strong - Бот остается на фиксированной высоте, никогда не уходит под землю
     correction_mode: free
     # На какой высоте должен быть бот, всё ниже 2.7 может повлиять на PvP, всё выше 4.5 может быть вне досягаемости.
-    min_height: -4.4
-    max_height: -6
+    min_height: 4.4
+    max_height: 6
     jump_multiple: 0.75
     # Какая скорость движения будет у бота? Значение ниже 0.7 может повлиять на PvP (максимум: 1.0).
     motion_speed: 1.0
     # На каком расстоянии должен быть бот (по осям x и y)?
-    min_distance: -3.3
-    max_distance: -5
+    min_distance: 3.3
+    max_distance: 5
     # Под каким углом бот должен быть относительно направления игрока?
     angle: 0
     # Установите значение >= 100, чтобы отключить спуск бота, это устранит некоторые обходы.
@@ -369,10 +364,10 @@ AutoAction:
   # Should we enable this module? ( AutoTotem )
   i: true
 
-  # Should we enable this module? ( AutoBlock )
+  # Should we enable this module? ( ClickPearl )
   j: true
 
-  # Should we enable this module? ( AutoBlock )
+  # Should we enable this module? ( ClickPearl )
   k: true
 
   # Should we enable this module? ( AutoBlock )
@@ -416,12 +411,6 @@ AutoAction:
 
   # Should we enable this module? ( ClickPearl )
   u: true
-
-  # Should we enable this module? ( ClickPearl )
-  v: true
-
-  # Should we enable this module? ( ClickPearl )
-  w: true
 
   setback_type: CANCEL_ATTACK
   setback_vl: 1
@@ -473,7 +462,13 @@ AutoClicker:
   l: true
 
   # Should we enable this module?
+  m: true
+
+  # Should we enable this module?
   n: true
+
+  # Should we enable this module?
+  q: true
 
   setback_type: CANCEL_ATTACK
   setback_vl: 1
@@ -490,7 +485,7 @@ FreeCam:
   # Should we enable this module?
   c: true
 
-  setback_type: DARKNESS
+  setback_type: TRUST
   setback_vl: 1
 
 ## Protocol Check
@@ -508,6 +503,10 @@ Protocol:
     threshold: 10
     # Игнорировать игроков, которые присоединились в течение этого времени в миллисекундах
     joined: 5000
+    # Максимальный буфер повторных пропусков транзакций перед флагом
+    max_buffer: 6
+    # Снижение буфера за каждый успешный ответ транзакции
+    decay: 0.05
 
   # Should we enable this module?
   c: true
@@ -563,6 +562,12 @@ Protocol:
   # Should we enable this module?
   t: true
 
+  # Should we enable this module?
+  u: true
+
+  # Should we enable this module?
+  v: true
+
   setback_type: NONE
   setback_vl: -1
 
@@ -602,6 +607,7 @@ Interpolation:
   setback_type: NONE
   setback_vl: -1
 
+
 ## Baritone Check
 Baritone:
 
@@ -617,7 +623,7 @@ Baritone:
   # Should we enable this module?
   d: true
 
-  setback_type: DARKNESS
+  setback_type: TRUST
   setback_vl: 1
 
 ## NoSlow Check
@@ -653,7 +659,7 @@ NoSlow:
   # Should we enable this module?
   c: true
 
-  setback_type: DARKNESS
+  setback_type: TRUST
   setback_vl: 1
 
 ## Sprint Check
@@ -695,6 +701,18 @@ Sprint:
   # Should we enable this module?
   l: true
 
+  # Should we enable this module?
+  m: true
+
+  # Should we enable this module?
+  n: true
+
+  # Should we enable this module?
+  o: true
+
+  # Should we enable this module?
+  p: true
+
   setback_type: CANCEL_ATTACK
   setback_vl: 1
 
@@ -718,6 +736,15 @@ Vehicle:
 
   # Should we enable this module?
   f: true
+
+  # Should we enable this module?
+  g: true
+
+  # Should we enable this module?
+  h: true
+
+  # Should we enable this module?
+  i: true
 
   setback_type: NONE
   setback_vl: -1
@@ -802,7 +829,7 @@ Velocity:
 ## Inventory Check
 Inventory:
 
-  # Should we enable this module? (XCarry)
+  # Should we enable this module?
   a: true
 
   # Should we enable this module? (InventoryMove)
@@ -855,7 +882,7 @@ Inventory:
 
     # Should we enable this module?
     enabled: true
-    setback_type: DARKNESS
+    setback_type: TRUST
 
   # Should we enable this module?
   k: true
@@ -863,13 +890,28 @@ Inventory:
   # Should we enable this module? (InvalidClose)
   l: true
 
-  # Should we enable this module?
+  # Должны ли мы включить этот модуль? (EntityAction)
   m: true
 
   # Should we enable this module? (FastClose)
   n: true
 
-  setback_type: DARKNESS, INVENTORY_CLOSE
+  # Should we enable this module?
+  o: true
+
+  # Should we enable this module?
+  p: true
+
+  # Should we enable this module?
+  q: true
+
+  # Should we enable this module?
+  r: true
+
+  # Should we enable this module?
+  s: true
+
+  setback_type: TRUST, INVENTORY_CLOSE
   setback_vl: 1
 
 ## NoFall Check
@@ -880,6 +922,9 @@ NoFall:
 
   # Should we enable this module?
   b: true
+
+  # Should we enable this module?
+  c: true
 
   setback_type: NONE
   setback_vl: -1
@@ -1017,8 +1062,14 @@ Chat:
   # Should we enable this module?
   d: true
 
-  # Should we enable this module?
-  e: true
+  # Chat E Module
+  e:
+
+    # Should we enable this module?
+    enabled: true
+
+    # Регулярное выражение для исключения сообщений и команд из проверки
+    exempt_regex: '(?i)^(?:\/)?(?:gg|hf|gl|wp|gf|glhf|ez)(?:[!?. ]*)$'
 
   # Should we enable this module?
   f: true
@@ -1162,7 +1213,7 @@ BadPackets:
   # Should we enable this module?
   cc: true
 
-  # Should we enable this module?
+  # Проверка игнорирования угла поворота при телепортации
   dd: true
 
   # Should we enable this module?
@@ -1183,20 +1234,35 @@ BadPackets:
   # Нужно ли проверять аномальные задержки и резкую отправку пакетов позиции
   blink: true
 
-  setback_type: GRIM
+  setback_type: TRUST
   setback_vl: 2
 
 ## Interact Check
 Interact:
 
-  # Should we enable this module? (FastBreak)
-  a: true
+  # Interact A Module (FastBreak)
+  a:
+
+    # Should we enable this module?
+    enabled: true
+
+    # Сколько миллисекунд преимущества от слишком быстрого ломания блоков допускается до пометки
+    break_threshold: 1000
+
+    # Сколько миллисекунд преимущества от слишком раннего начала ломания блока после предыдущего допускается до пометки
+    delay_threshold: 1000
 
   # Should we enable this module?
   b: true
 
-  # Should we enable this module? (FastPlace)
-  c: true
+  # Interact C Module (FastPlace)
+  c:
+
+    # Should we enable this module?
+    enabled: true
+
+    # Минимальное среднее значение задержки в миллисекундах между установкой/использованием для пометки
+    average: 50
 
   # Should we enable this module? (GhostHand)
   d: true
@@ -1234,7 +1300,16 @@ Interact:
   # Should we enable this module? (NoEntityTrace)
   o: true
 
-  setback_type: DARKNESS
+  # Should we enable this module?
+  p: true
+
+  # Should we enable this module?
+  q: true
+
+  # Should we enable this module? (NoSwingPlace)
+  r: true
+
+  setback_type: TRUST
   setback_vl: 3
 
 ## Scaffold Check
@@ -1279,7 +1354,22 @@ Scaffold:
   # Should we enable this module?
   m: true
 
-  setback_type: DARKNESS
+  # Should we enable this module?
+  n: true
+
+  # Should we enable this module?
+  o: true
+
+  # Should we enable this module?
+  p: true
+
+  # Should we enable this module?
+  q: true
+
+  # Should we enable this module?
+  r: true
+
+  setback_type: TRUST
   setback_vl: 1
 
 ## Timer Check
@@ -1357,7 +1447,10 @@ Elytra:
   # Should we enable this module?
   m: true
 
-  setback_type: DARKNESS
+  # Should we enable this module?
+  n: true
+
+  setback_type: TRUST
   setback_vl: 1
 
 checks:

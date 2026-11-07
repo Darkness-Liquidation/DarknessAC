@@ -1,69 +1,80 @@
 # +----------------------------------------------------------------------------------------------+
 # |                                                                                              |
-# |                                       Darkness Liquidation                                   |
+# |                                              Alice                                           |
 # |                                                                                              |
-# |                               Discord: https://dsc.gg/darkness-liquidation                   |
+# |                               Discord: https://discord.gg/m7j2Y9H                            |
 # |                                                                                              |
-# |                                 Authors: 1hendex x clopdisabler                              |
+# |                                           Author: 1hendex                                        |
 # |                                                                                              |
 # +----------------------------------------------------------------------------------------------+
 
-# \u00BB is » (double >>), ANSI and UTF-8 interpret this differently... you may even see ? due to this
+theme_author: 1hendex
 prefix: "&8「&cAlice&8」&7»"
-theme_author: Nik
 
-add_point_success: "%prefix% &cДобавлен один поинт игроку %player%"
-alerts_disabled: "%prefix% &fОповещения выключены"
-alerts_enabled: "%prefix% &fОповещения включены"
-bot_already_spawned: "%prefix% &fБот уже был заспавнен для этого игрока"
-bot_spawned: "%prefix% &fВы заспавнили бота для &7%player%"
-cannot_run_on_self: "%prefix% &cВы не можете использовать эту команду на себе!"
-cannot_spectate_return: "%prefix% &cВы можете сделать это только после наблюдения за игроком"
-cant_execute_from_console: "%prefix% &cЭта команда доступна только игрокам!"
-client_brand_format: "%prefix% &f%player% присоединился, используя %brand%"
-client_brand_kick: "&c%brand% &fне разрешен на этом сервере!"
-console_specify_target: "%prefix% &cВы должны указать цель в качестве консоли!"
-cps_action_bar: "&fИгрок: &c%player%&f, CPS: &c%cps%"
-cps_disabled: "%prefix% &fОтображение CPS &cвыключено"
-cps_enabled: "%prefix% &fОтображение CPS &aвключено"
-crash_invalid_mode: "%prefix% &cНеизвестный метод! Используйте entity, particle, position, explosion, demo, lag!"
-crash_player: "%prefix% &cВы, возможно, крашнули клиент игрока &7%player%"
-experimental_symbol: " (Experimental)"
-invalid_syntax: "%prefix% &cПравильный синтаксис: %syntax%"
-kick_message: "%prefix% &fВы выгнали игрока &c%player%&c!"
-knockback_success: "%prefix% &cУспешно проведен тест отбрасывания для игрока %player%"
-no_permission: "%prefix% &cУ вас нет прав!"
-player_godmode: "%prefix% &cИгрок находится в режиме неуязвимости"
-player_no_totem: "%prefix% &cУ игрока в руке нет тотема для проверки!"
-player_not_found: "%prefix% &cУказанный игрок не может быть найден!"
-player_not_survival: "%prefix% &cИгрок находится не в режиме выживания"
-player_not_this_server: "%prefix% &cИгрок не на этом сервере!"
-punish_message: "%prefix% &fВы наказали игрока &c%player%&c!"
-punishwave_added: "%prefix% &c%player% &fбыл добавлен в волну наказаний"
-punishwave_countdown: "%prefix% &fВолна наказаний начнётся через &c%countdown% &fсекунд"
-punishwave_exists: "%prefix% &fЭтот игрок уже был добавлен в волну наказаний"
-punishwave_punished: "%prefix% &c%count% &fигроков были наказаны за читерство"
-reload_failed: "%prefix% &cНе удалось перезагрузить конфигурацию. (Подробности в консоли)"
-reload_success: "%prefix% &fЯ успешно перезагружена!"
-reloading: "%prefix% &7Перезагрузка конфигурации..."
-reset_points_success: "%prefix% &cБан-поинты сброшены для игрока %player%"
-rotate_success: "%prefix% &cУспешно повернут игрок %player%"
+alerts_disabled: "%prefix% &fAlerts &cdisabled"
+alerts_enabled: "%prefix% &fAlerts &aenabled"
+bot_already_spawned: "%prefix% &fThe bot has already been spawned for this player"
+bot_spawned: "%prefix% &fYou have spawned the bot for &6%player%"
+broadcast: "%prefix% &6%player% &fHas been punished by Alice"
+cannot_run_on_self: "%prefix% &cYou cannot use this command on yourself!"
+cannot_spectate_return: "%prefix% &cYou can only do this after spectating a player!"
+cant_execute_from_console: "%prefix% &cThis command can only be executed by players!"
+client_brand_format: "%prefix% &6%player% &fhas joined the server using &6%brand%"
+client_brand_kick: "&6%brand% &fis not allowed on this server!"
+console_specify_target: "%prefix% &cYou must specify a target from console!"
+cps_action_bar: "&6Player: &f%player%&7, &6CPS: &f%cps%&7, &6DC: &f%double_click%"
+cps_disabled: "%prefix% &fCPS display &cdisabled"
+cps_enabled: "%prefix% &fCPS display &aenabled"
+crash_invalid_mode: "%prefix% &cUnknown method! Available: entity, particle, position, explosion, demo, lag"
+crash_player: "%prefix% &fAttempted to crash client of &6%player%"
+experimental_symbol: " &7(Experimental)"
+invalid_syntax: "%prefix% &cCorrect syntax: &6%syntax%"
+kick_message: "%prefix% &fYou have kicked &6%player%"
+knockback_success: "%prefix% &fSuccessfully performed knockback test on &6%player%"
+no_permission: "%prefix% &cI am not permitted to let you execute this command."
+player_godmode: "%prefix% &cPlayer is in god mode!"
+player_no_totem: "%prefix% &cPlayer is not holding a totem for inspection!"
+player_not_found: "%prefix% &fCould not find the player &6%player%&c."
+player_not_survival: "%prefix% &cPlayer is not in survival mode!"
+player_not_this_server: "%prefix% &cPlayer is not on this server!"
+punish_message: "%prefix% &fYou have punished &6%player%"
+punishwave_added: "%prefix% &6%player% &fHas been added to the punish wave"
+punishwave_countdown: "%prefix% &fThe punish wave will execute in &6%countdown% &fseconds"
+punishwave_exists: "%prefix% &fThat player has already been added to the punish wave"
+punishwave_punished: "%prefix% &6%count% &fplayers have been punished for cheating"
+reload_failed: "%prefix% &cFailed to reload configuration. (Details in console)"
+reload_success: "%prefix% &fI have successfully reloaded!"
+reloading: "%prefix% &7Reloading configuration..."
+rotate_success: "%prefix% &fSuccessfully rotated player &6%player%"
 run_as_player: "%prefix% &cThis command can only be used by players!"
 run_as_player_or_console: "%prefix% &cThis command can only be used by players or the console!"
-setback_message: "%prefix% &cВы успешно сетбекнули назад игрока %player%"
-shuffle_invalid_mode: "%prefix% &cНеверный режим. Доступные: one , many"
-shuffle_many: "%prefix% &cУспешно перемешан Hotbar для игрока %player%"
-shuffle_one: "%prefix% &cУспешно перемешан один слот Hotbar для игрока %player%"
-spectate_return: "<click:run_command:/darkness stopspectating><hover:show_text:\"/darkness stopspectating\">\n%prefix% &fНажмите здесь, чтобы вернуться на предыдущее место\n</hover></click>"
-totem_cooldown: "%prefix% &cМы не можем проверить игрока. Подождите: %time%"
-totem_failed: "%prefix% &cИгрок не прошел проверку!"
-totem_no_damage: "%prefix% &cНе удалось нанести урон игроку!"
-totem_passed: "%prefix% &aИгрок %player% успешно прошел проверку!"
+setback_message: "%prefix% &fSuccessfully set back player &6%player%"
+shuffle_invalid_mode: "%prefix% &cInvalid mode. Available: one, many"
+shuffle_many: "%prefix% &fSuccessfully shuffled hotbar for &6%player%"
+shuffle_one: "%prefix% &fSuccessfully shuffled one slot for &6%player%"
+spectate_return: "<click:run_command:/darkness stopspectating><hover:show_text:\"/darkness stopspectating\">\n%prefix% &fClick here to return to your previous location</hover></click>"
+totem_cooldown: "%prefix% &cCannot test player. Wait: &6%time%"
+totem_failed: "%prefix% &cPlayer failed the check!"
+totem_no_damage: "%prefix% &cFailed to damage player!"
+totem_passed: "%prefix% &aPlayer &6%player% &apassed the check!"
 transaction_kick: "Internal Exception: io.netty.handler.timeout.ReadTimeoutException"
-unknown_command: "%prefix% &cНеизвестная команда!"
-unsupported_version: "%prefix% &cЭта функция недоступна на текущей версии ядра сервера!"
-verbose_disabled: "%prefix% &fVerbose disabled"
-verbose_enabled: "%prefix% &fVerbose enabled"
+unknown_command: "%prefix% &cUnknown command!"
+unsupported_version: "%prefix% &cFeature unavailable on this server version!"
+verbose_disabled: "%prefix% &fVerbose &cdisabled"
+verbose_enabled: "%prefix% &fVerbose &aenabled"
+
+trust:
+  add_success: "%prefix% &fAdded &6%points% &ftrust points to &6%player% &8(&7Total: &f%total%&7, Level: %color%%level%&8)"
+  remove_success: "%prefix% &fRemoved &6%points% &ftrust points from &6%player% &8(&7Total: &f%total%&7, Level: %color%%level%&8)"
+  set_success: "%prefix% &fSet trust points to &6%points% &ffor &6%player% &8(&7Level: %color%%level%&8)"
+  clear_success: "%prefix% &fCleared all trust points for &6%player%"
+  info_header: "%prefix% &6TrustFactor info for &f%player%&6:"
+  info_points: " &8» &6Points: &f%points%"
+  info_level: " &8» &6Level: %color%%level%"
+  info_score: " &8» &6Trust score: &f%score%&8/&7100"
+  info_banned: " &8» &6Banned: %status%"
+  status_yes: "&cYes"
+  status_no: "&aNo"
 
 disconnect:
   timeout: "<lang:disconnect.timeout>"
@@ -72,161 +83,119 @@ disconnect:
   error: "<red>An error occurred whilst processing packets. Please contact the administrators."
 
 bar:
-  opening_bracket: '&8['
-  closing_bracket: '&8]'
-  fill: '&f|'
-  empty: '&7|'
+  opening_bracket: '&7['
+  closing_bracket: '&7]'
+  fill: '&6|'
+  empty: '&f|'
   size: 18
 
-# Доступные плейсхолдеры:
-# %time% - Текущее время (Обязательный плейсхолдер к логу)
-# %server_name% - Название сервера
-# %player% - Никнейм игрока
-# %ip% - IP-адрес игрока
-# %uuid% - Уникальный идентификатор игрока
-# %check_name% - Название проверки с типом
-# %verbose% - Дополнительная информация от проверки. Не все проверки добавляют эту информацию
-# %vl% - Количество нарушений
-# %bar% - количество нарушений в виде бара
-# %trust_color% - Цветовой код нарушения
-# %trust_name% - Цветовое имя нарушение
-# %check% - Название проверки без типа
-# %check_type% - Название типа чека
-# %ping% - Пинг игрока
-# %tps% - Текущий TPS
-# %component% - Модуль кика (Только для бренда)
-# %brand% - Клиентский бренд игрока (например, Vanilla, Lunar-Client, Forge)
-# %version% - Версия игры клиента (например, 1.16.5)
-# %lagstatus% - Статус лагов у игрока
-# %h_sensitivity% - Горизонтальная чувствительность мыши игрока (в %)
-# %v_sensitivity% - Вертикальная чувствительность мыши игрока (в %)
-# %fast_math% - Использует ли игрок FastMath (true/false)
-# %prefix% - Стандартный префикс плагина
-# %darkness_version% - Текущая версия античита Darkness
-# %nl% - Перенос строки
-# %max_vl% - Максимальное количество нарушений до кика/бана
-# %experimental% - Знак (Experimental) если проверка тестовая
-# %description% - Описание работы проверки
-# %information% - Техническая информация о хитбоксах
-brand_log_format: "(%time%) %server_name%: %player% (%ip%) был исключен за бренд: %brand% | component: %component%"
-log_format: "(%time%) %server_name%: %player% (%ip%) провалил %check% | (%verbose%) | vl: %vl% ping: %ping% tps: %tps%"
+brand_log_format: "(%time%) %server_name%: %player% (%ip%) was kicked for brand: %brand% | component: %component%"
+log_format: "(%time%) %server_name%: %player% (%ip%) failed %check% | (%verbose%) | vl: %vl% ping: %ping% tps: %tps%"
 command_log_format: "(%time%) %server_name%: Execute command: %command%"
-alerts_format: "%prefix% &c%player% &7провалил &c%check_name%%experimental% &7(x&c%bar%&7)"
-alerts_format_console: "%prefix% &c%player% &7провалил &c%check_name%%experimental% &7(x&c%vl%&7) &c%verbose%"
-alerts_format_proxy: "%prefix% &f[&cPROXY&f] &f%player% &7провалил &f%check_name%%experimental% &f(x&c%vl%&f) &7%verbose%"
+alerts_format: "%prefix% &6%player% &ffailed &6%check_name%%experimental% %bar%"
+alerts_format_console: "%prefix% &6%player% &ffailed &6%check_name%%experimental% &7(x&6%vl%&7) &f%verbose%"
+alerts_format_proxy: "%prefix% &f[&6PROXY&f] &6%player% &ffailed &6%check_name%%experimental% &7(x&6%vl%&7) &f%verbose%"
 
 alert_hover_enabled: true
 alert_hover_command: "/darkness spectate %player%"
 alert_hover:
-  - '&7Описание:&r'
-  - '&c%description%'
+  - '&6Description:&r'
+  - '%description%'
   - ' '
-  - '&7Информация:&r'
-  - '&c%information%'
+  - '&6Information:&r'
+  - '%information%'
   - ' '
-  - '&7Версия: &c&r%version%'
+  - '&6Version: &r%version%'
   - ' '
-  - '&7Ping: &c&r%ping%'
+  - '&6Ping: &r%ping%'
   - ' '
-  - '&7TPS: &c&r%tps%'
+  - '&6TPS: &r%tps%'
   - ' '
-  - '&cНажмите, чтобы начать слежку'
+  - '&fClick to spectate'
 
 topvl_command:
   - ' '
   - '%prefix%'
   - ' '
-  - '&8» &7Топ нарушителей:'
+  - '&6Top Violators:'
   - ' '
-  - '&7%violators%'
-  - ' '
-topvl_format: "&8- &7%player_name% &7(&c%vl% VL&7)"
-topvl_hover: "&cНажмите, чтобы следить за %player_name%"
+  - '&6%violators%'
+topvl_format: "&6- &f%player_name% &7(&6%vl% &fVL&7)"
+topvl_hover: "&fClick to spectate &6%player_name%"
 
 profile_command:
   - ' '
   - '%prefix%'
   - ' '
-  - '&8» &7Профиль игрока: &f%player%'
-  - '&8» &7Состояние лага: &f%lagstatus%'
-  - '&8» &7Пинг: &f%ping%'
-  - '&8» &7Версия: &f%version%'
-  - '&8» &7Клиент: &f%brand%'
-  - '&8» &7Горизонтальная чувствительность: &f%h_sensitivity%%'
-  - '&8» &7Вертикальная чувствительность: &f%v_sensitivity%%'
-  - '&8» &7Быстрая математика: &f%fast_math%'
+  - '&6Ping: &f%ping%'
+  - '&6Lag Status: &f%lagstatus%'
+  - '&6CPS: &f%cps%'
+  - '&6Sensitivity: &f%h_sensitivity%% | %v_sensitivity%%'
+  - '&6Client: &f%brand%'
+  - '&6Version: &f%version%'
+  - '&6FastMath: &f%fast_math%'
   - ' '
 
 lag_command:
   - ' '
   - '%prefix%'
   - ' '
-  - '&8» &7Ядро/Версия: &f%version%'
-  - '&8» &7Система: &f%system%'
-  - '&8» &7TPS: &f%tps%'
-  - '&8» &7Потоки: &f%threads%'
-  - '&8» &7Версия Java: &f%javaversion%'
-  - '&8» &7Свободная память: &f%freememory%'
-  - '&8» &7Максимальная память: &f%maxmemory%'
-  - '&8» &7Плагины: &f%plugins%'
+  - '&6System: &f%system%'
+  - '&6TPS: &f%tps%'
+  - '&6Threads: &f%threads%'
+  - '&6Java Version: &f%javaversion%'
+  - '&6Free Memory: &f%freememory%'
+  - '&6Max Memory: &f%maxmemory%'
+  - '&6Plugins: &f%plugins%'
   - ' '
 
 checks_command:
   space: ' '
   type_space: ' '
-  type: "&8» &7Категория проверки: &f%checkType%"
-  not_found_total: "&8» &cПроверки не найдены."
-  not_found_type: "&8» &cОтсутствуют."
+  type: "&6Category: &f%checkType%"
+  not_found_total: "&cNo checks found."
+  not_found_type: "&cNone."
   separator: "&7, "
-  check_not_found: "%prefix% &cЧек &7'%check%' &cне найден!"
-  check_enabled: "%prefix% &fЧек &a%check% &fбыл &aвключен&f!"
-  check_disabled: "%prefix% &fЧек &c%check% &fбыл &cвыключен&f!"
-  check_already_enabled: "%prefix% &fЧек &a%check% &fуже &aвключен&f!"
-  check_already_disabled: "%prefix% &fЧек &c%check% &fуже &cвыключен&f!"
+  check_not_found: "%prefix% &cCheck '%check%' not found!"
+  check_enabled: "%prefix% &fCheck &a%check% &fwas &aenabled&f!"
+  check_disabled: "%prefix% &fCheck &c%check% &fwas &cdisabled&f!"
+  check_already_enabled: "%prefix% &fCheck &a%check% &falready &aenabled&f!"
+  check_already_disabled: "%prefix% &fCheck &c%check% &falready &cdisabled&f!"
   check:
     enabled: "&a%checkName%%experimental%"
     disabled: "&c%checkName%%experimental%"
     exempted: "&e%checkName%%experimental%"
 
-# Плейсхолдеры: %prefix% -> (Префикс Даркнесс), %player% -> (Игрок, который был наказан), %reason% -> (Причина, указанная в команде наказания Грима)
-broadcast:
-  kick:
-    - "%prefix% &cИгрок &6&l%player%&r &cбыл кикнут за использование читов!"
-  ban:
-    - "%prefix% &cИгрок &6&l%player%&r &cбыл забанен за использование читов!"
-
 help:
   - ' '
-  - '%prefix% &7Список доступных команд Darkness'
+  - '%prefix% &fCommands List:'
   - ' '
-  - '&8» &c/darkness alerts &f- &7Включить/выключить оповещения.'
-  - '&8» &c/darkness profile <player> &f- &7Посмотреть информацию об игроке.'
-  - '&8» &c/darkness help &f- &7Просмотр списка доступных команд.'
-  - '&8» &c/darkness menu &f- &7Открыть главное меню.'
-  - '&8» &c/darkness themes &f- &7Открыть меню тем.'
-  - '&8» &c/darkness logs &f- &7Посмотреть логи игроков.'
-  - '&8» &c/darkness debug <player> &f- &7Отладка с прогнозом разработчика.'
-  - '&8» &c/darkness perf &f- &7Показатель производительности (ms/prediction).'
-  - '&8» &c/darkness kb <player> <back> &f- &7Проверка игрока на откидывание.'
-  - '&8» &c/darkness cps <player> &f- &7Отображение CPS игрока.'
-  - '&8» &c/darkness kick <player> <reason> &f- &7Кикнуть игрока с сервера.'
-  - '&8» &c/darkness punish <player> <reason> &f- &7Наказать игрока за использование читов.'
-  - '&8» &c/darkness ban <player> <reason> &f- &7Забанить игрока на сервере.'
-  - '&8» &c/darkness addpoint <player> &f- &7Выдать бан-поинт игроку.'
-  - '&8» &c/darkness resetpoints <player> &f- &7Сбросить все бан-поинты игрока.'
-  - '&8» &c/darkness topvl &f- &7Посмотреть список игроков с наибольшим количеством нарушений.'
-  - '&8» &c/darkness checks &f- &7Посмотреть все активные проверки Darkness.'
-  - '&8» &c/darkness shuffle <player> <method> &f- &7Перемешать слоты игрока.'
-  - '&8» &c/darkness crash <player> <method> &f- &7Крашнуть клиент игрока.'
-  - '&8» &c/darkness lag &f- &7Просмотреть характеристики сервера.'
-  - '&8» &c/darkness rotate <player> &f- &7Рандомный поворот игрока.'
-  - '&8» &c/darkness totem <player> &f- &7Проверить игрока на AutoTotem.'
-  - '&8» &c/darkness reload &f- &7Перезагрузить конфигурацию.'
-  - '&8» &c/darkness spectate <player> &f- &7Слежка за игроком.'
-  - '&8» &c/darkness verbose &f- &7Показ всех флагов без буферов.'
+  - '&6/darkness alerts &e- &6Toggle alerts'
+  - '&6/darkness profile <player> &e- &6View player profile'
+  - '&6/darkness help &e- &6Show this list'
+  - '&6/darkness menu &e- &6Open main menu'
+  - '&6/darkness themes &e- &6Open themes menu'
+  - '&6/darkness logs &e- &6View player logs'
+  - '&6/darkness debug <player> &e- &6Toggle check debug'
+  - '&6/darkness perf &e- &6Performance stats'
+  - '&6/darkness kb <player> <back> &e- &6Knockback test'
+  - '&6/darkness cps <player> &e- &6Track player CPS'
+  - '&6/darkness kick <player> <reason> &e- &6Kick player'
+  - '&6/darkness punish <player> <reason> &e- &6Punish player'
+  - '&6/darkness trust <action> <player> &e- &6Manage trust factor'
+  - '&6/darkness topvl &e- &6View top violators'
+  - '&6/darkness checks &e- &6Manage checks'
+  - '&6/darkness shuffle <player> <method> &e- &6Shuffle hotbar slots'
+  - '&6/darkness crash <player> <method> &e- &6Crash player client'
+  - '&6/darkness lag &e- &6Server lag statistics'
+  - '&6/darkness rotate <player> &e- &6Force rotate player'
+  - '&6/darkness totem <player> &e- &6Check AutoTotem'
+  - '&6/darkness reload &e- &6Reload configuration'
+  - '&6/darkness spectate <player> &e- &6Spectate player'
+  - '&6/darkness verbose &e- &6Toggle verbose flags'
   - ' '
 
 messages:
   checks_updates: true
-  lang: ru
-  version: 4
+  lang: en
+  version: 5

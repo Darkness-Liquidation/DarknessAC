@@ -105,7 +105,7 @@ Punishments:
       - '1:1 [proxy]'
       - '1:1 [log]'
       - '1:0 darkness rotate %player%'
-      - '2:0 darkness ban %player% &cВас забанили через підозру у використанні чітів'
+      - '2:0 ban %player% &cВас забанили через підозру у використанні чітів'
 
   Chat:
     remove_violations_after: 300
@@ -117,7 +117,7 @@ Punishments:
       - '1:1 [server]'
       - '1:1 [log]'
       - '4:0 darkness punish %player% &cВас кікнули через підозру у використанні чітів.'
-      - '8:0 darkness ban %player% &cВас забанили через підозру у використанні чітів'
+      - '8:0 ban %player% &cВас забанили через підозру у використанні чітів'
 
   AutoClicker:
     remove_violations_after: 300
@@ -187,7 +187,7 @@ Punishments:
       - '2:3 [webhook]'
       - '2:3 [server]'
       - '4:0 darkness punish %player% &cВас кікнули через підозру у використанні чітів.'
-      - '6:0 darkness ban %player% &cВас забанили через підозру у використанні чітів'
+      - '6:0 ban %player% &cВас забанили через підозру у використанні чітів'
 
   Timer:
     remove_violations_after: 70
@@ -200,7 +200,7 @@ Punishments:
       - '2:5 [log]'
       - '1:1 [proxy]'
       - '20:0 darkness punish %player% &cВас кікнули через підозру у використанні чітів.'
-      - '30:0 darkness ban %player% &cВас забанили через підозру у використанні чітів'
+      - '30:0 ban %player% &cВас забанили через підозру у використанні чітів'
 
   NoFall:
     remove_violations_after: 300
@@ -285,7 +285,7 @@ Punishments:
       - '1:2 [log]'
       - '1:2 [webhook]'
       - '1:2 [server]'
-      - '1:0 darkness ban %player% &cВас забанили через підозру у використанні чітів'
+      - '1:0 ban %player% &cВас забанили через підозру у використанні чітів'
 
   Crash:
     remove_violations_after: 360
@@ -304,4 +304,4 @@ Punishments:
 punishments:
   checks_updates: true
   lang: uk
-  version: 4
+  version: 5

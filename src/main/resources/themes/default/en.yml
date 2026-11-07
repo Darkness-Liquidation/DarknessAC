@@ -12,18 +12,18 @@
 prefix: "&x&8&8&0&0&0&0&l&oD&x&A&C&0&2&0&2&l&oa&x&C&F&0&4&0&4&l&or&x&E&F&0&3&0&3&l&ok&x&D&E&0&2&0&2&l&on&x&9&C&0&0&0&0&l&oe&x&7&D&0&0&0&0&l&os&x&6&A&0&0&0&0&l&os §8|"
 theme_author: 1hendex
 
-add_point_success: "%prefix% &cAdded 1 point to player %player%"
 alerts_disabled: "%prefix% &fAlerts disabled"
 alerts_enabled: "%prefix% &fAlerts enabled"
 bot_already_spawned: "%prefix% &fBot has already been spawned for this player"
 bot_spawned: "%prefix% &fYou spawned a bot for &7%player%"
+broadcast: "%prefix% &cPlayer &6&l%player%&r &cwas kicked for cheating!"
 cannot_run_on_self: "%prefix% &cYou cannot use this command on yourself!"
 cannot_spectate_return: "%prefix% &cYou can only do this after spectating a player"
 cant_execute_from_console: "%prefix% &cThis command can only be executed by players!"
 client_brand_format: "%prefix% &f%player% joined using %brand%"
 client_brand_kick: "&c%brand% &fis not allowed on this server!"
 console_specify_target: "%prefix% &cYou must specify a target in the console!"
-cps_action_bar: "&e⚡ &fPlayer: &c%player%&f, CPS: &c%cps%"
+cps_action_bar: "&e⚡ &fPlayer: &c%player%&f, CPS: &c%cps%&f, DC: %double_click%"
 cps_disabled: "%prefix% &fCPS display &cdisabled"
 cps_enabled: "%prefix% &fCPS display &aenabled"
 crash_invalid_mode: "%prefix% &cUnknown method! Use entity, particle, position, explosion, demo, lag!"
@@ -45,7 +45,6 @@ punishwave_punished: "%prefix% &c%count% &fplayers have been punished for cheati
 reload_failed: "%prefix% &cFailed to reload configuration. (Details in console)"
 reload_success: "%prefix% &fI have successfully reloaded!"
 reloading: "%prefix% &7Reloading configuration..."
-reset_points_success: "%prefix% &cBan points reset for player %player%"
 rotate_success: "%prefix% &cSuccessfully rotated player %player%"
 run_as_player: "%prefix% &cThis command can only be used by players!"
 run_as_player_or_console: "%prefix% &cThis command can only be used by players or the console!"
@@ -62,6 +61,19 @@ unknown_command: "%prefix% &cUnknown command!"
 unsupported_version: "%prefix% &cFeature unavailable on this server version!"
 verbose_disabled: "%prefix% &fVerbose disabled"
 verbose_enabled: "%prefix% &fVerbose enabled"
+
+trust:
+  add_success: "%prefix% &fAdded &c%points% &ftrust points to &c%player% &8(&7Total: &f%total%&7, Level: %color%%level%&8)"
+  remove_success: "%prefix% &fRemoved &c%points% &ftrust points from &c%player% &8(&7Total: &f%total%&7, Level: %color%%level%&8)"
+  set_success: "%prefix% &fSet trust points to &c%points% &ffor &c%player% &8(&7Level: %color%%level%&8)"
+  clear_success: "%prefix% &fCleared all trust points for &c%player%"
+  info_header: "%prefix% &7TrustFactor info for player &c%player%&7:"
+  info_points: " &8» &7Points: &f%points%"
+  info_level: " &8» &7Level: %color%%level%"
+  info_score: " &8» &7Trust score: &f%score%&8/&7100"
+  info_banned: " &8» &7Banned: %status%"
+  status_yes: "&cYes"
+  status_no: "&aNo"
 
 disconnect:
   timeout: "<lang:disconnect.timeout>"
@@ -186,13 +198,6 @@ checks_command:
     disabled: "&c%checkName%%experimental%"
     exempted: "&e%checkName%%experimental%"
 
-# Placeholders: %prefix% -> (Darkness Prefix), %player% -> (The player that got punished), %reason% -> (The reason provided by the Darkness punish command)
-broadcast:
-  kick:
-    - "%prefix% &cPlayer &6&l%player%&r &cwas kicked for cheating!"
-  ban:
-    - "%prefix% &cPlayer &6&l%player%&r &cwas banned for cheating!"
-
 help:
   - ' '
   - '%prefix% &7List of available Darkness commands'
@@ -209,9 +214,7 @@ help:
   - '&8» &c/darkness cps <player> &f- &7Display player CPS.'
   - '&8» &c/darkness kick <player> <reason> &f- &7Kick player from server.'
   - '&8» &c/darkness punish <player> <reason> &f- &7Punish player for cheating.'
-  - '&8» &c/darkness ban <player> <reason> &f- &7Ban player from server.'
-  - '&8» &c/darkness addpoint <player> &f- &7Give ban point to player.'
-  - '&8» &c/darkness resetpoints <player> &f- &7Reset all ban points for player.'
+  - '&8» &c/darkness trust <add|remove|set|clear|info> <player> [value] &f- &7Manage player TrustFactor.'
   - '&8» &c/darkness topvl &f- &7View a list of players with the most violations.'
   - '&8» &c/darkness checks &f- &7View all active Darkness checks.'
   - '&8» &c/darkness shuffle <player> <method> &f- &7Shuffle player slots.'
@@ -227,4 +230,4 @@ help:
 messages:
   checks_updates: true
   lang: en
-  version: 4
+  version: 5

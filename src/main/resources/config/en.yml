@@ -8,29 +8,105 @@
 # |                                                                                              |
 # +----------------------------------------------------------------------------------------------+
 
-# To run Darkness, a license is required (provided upon purchase)
-your_license: "null"
+# License Settings
+license:
 
-alerts:
-  # In addition to broadcasting alerts to players, should they also be sent to the console?
-  print_to_console: true
-  # This controls whether/how alerts are shared between servers connected to your proxy.
-  # You must have 'bungee-plugin-message-channel' enabled in your Velocity's configuration if Velocity is in use.
-  proxy:
-    # Should alerts be sent to other servers connected to your proxy?
-    send: false
-    # Should the alerts received from other servers be announced to this server?
-    receive: false
+  # Your license key (provided upon purchase)
+  api-key: "null"
 
-verbose:
-  print_to_console: false
+  # Darkness API server URL
+  api-server: "https://api.darkness.rip/"
 
 # Should we enable the test mode?
-# If this mode is enabled, the punish, rotate, and slot shuffle commands will not work.
+# If this mode is enabled, the punish, rotate, and slot shuffle commands will not work
 test_mode: false
 
 # The theme that Darkness is going to use
 theme: default
+
+# The server name that will be shown in Player Logs and Discord Messages
+server_name: Darkness Server
+
+# Specify the name or names for the Darkness commands (separated by commas)
+# The first name in the list will become the main command of the plugin
+# Changes are applied only after a server restart
+command_name: darkness,dl
+
+# Discord Sync Settings
+discord:
+
+  # Would you like to sync Darkness to your Discord server via Webhook?
+  enabled: false
+
+  # Insert the Discord Channel Webhook URL
+  webhook_url: ""
+
+  # Message title for detection alerts
+  embed_title: "**:fire: NEW CHEATER DETECTED!**"
+
+  # Color of the stripe on the left side of the embed (HEX format)
+  embed_color: "#ff0000"
+
+  # Message content for violation alerts
+  violation_content:
+    - "%player%"
+    - ""
+    - ":shield: **Server Name:**"
+    - "%server_name%"
+    - ""
+    - ":package: **Cheat Type:**"
+    - "%check%"
+    - ""
+    - ":bar_chart: **VL**"
+    - "%violations%"
+    - ""
+    - ":desktop: **Client:**"
+    - "%brand%"
+    - ""
+    - ":pushpin: **Version:**"
+    - "%version%"
+    - ""
+    - ":signal_strength: **PING | TPS:**"
+    - "%ping% | %tps%"
+
+  # Would you like Darkness to send Discord messages when players get punished in a Punish Wave?
+  punishwave: false
+
+  # Message title for Punish Wave alerts
+  punishwave_title: "**:fire: A WAVE OF NEW CHEATERS DETECTED!**"
+
+  # Message content for Punish Wave alerts
+  punishwave_content:
+    - ":shield: **Server**"
+    - "%server_name%"
+    - ""
+    - ":busts_in_silhouette: **Players Punished**"
+    - "%players_punishwave%"
+    - ""
+
+  # Title of the additional information field in the embed
+  embed_field: "Information:"
+
+# Connection Settings
+connection_settings:
+
+  # If true, the server will hold or cancel packets if the player starts lagging
+  force_hold_server_packets: true
+
+  # Transaction response delay (in milliseconds) after which a player is considered to be lagging
+  enforce_latency_ms: 500
+
+  # How many seconds can pass without movement packets before Darkness issues a flag?
+  enforce_flying_second: 4
+
+  # Should hits be cancelled if the player is experiencing severe network lag?
+  cancel_hits: true
+
+  # Enable this to block player movement processing if their latency exceeds the limits
+  block_movement: true
+
+  # If true, the server will stop sending world data (entity movement, blocks) to the lagging player
+  cancel_outbound_packets: false
 
 # Client Settings
 client_settings:
@@ -38,13 +114,13 @@ client_settings:
   # Client Alert Settings
   alert:
 
-    # Should we send an Alert when a player joins specifying their Client Brand?
+    # Should we send an alert when a player joins specifying their Client Brand?
     enabled: true
 
-    # Removes the following regex from the brand
+    # Removes the following regex pattern from the client brand string
     remove: " \\(Velocity\\)$"
 
-    # This means it won't broadcast their brand to operators if the brand matches the following regexes
+    # Brands matching the following regexes will not be announced to operators
     ignored_clients:
       - "^badlion$"
       - "^optifine$"
@@ -54,24 +130,32 @@ client_settings:
       - "^Feather Fabric$"
       - "(^lunarclient:v\\d+\\.\\d+\\.\\d+-\\d{4}(,fabric)?$)|(^lunarclient:[a-z0-9]{7}/[\\w_/-]{3,32}$)"
       - "^labymod$"
+      - "(?i)axolotl"
+      - "^Ogulniega$"
 
-  # Client brands containing the following names will be blocked from joining the server
+  # Client brands matching the following regex patterns will be prevented from joining the server
   banned_clients:
     - "^1.12.2$"
-    - "^mcp$"
+    - "(?i)mcp"
     - "^ForgeOptiFine 1.16.5/forge/modified$"
     - ".*/.*"
+    - "^(.)\\1+$"
 
-  # Minimum/Maximum client brand name length.
+  # Minimum and maximum client brand name length (format: min:max)
   symbol_limiter: 5:16
-  # Whether to check the number of caps (recommended not to disable to detect client spoofing like FORGE, VANILLA) (-1 to disable)
+
+  # Maximum allowed percentage of uppercase characters in brand name (set to -1 to disable)
+  # Recommended to keep enabled to detect spoofing like FORGE, VANILLA
   caps_percentage: 70
-  # Blocking the use of invalid characters in the brand name.
+
+  # Whitelist regex for allowable characters in client brand name
+  # Any brand containing characters outside this regex will be rejected
   whitelist_regex: "^[a-zA-Z0-9:_/, .-]+$"
-  # Should we block cheat clients by suspicious signs (e.g., Delta Client and others)
+
+  # Should Darkness detect cheat clients by suspicious patterns and channel spoofing?
   cheat_detector: true
-  # Darkness will block clients by payload channel name using a regex.
-  # If the payload channel matches this regex, it will not be able to join the server.
+
+  # Darkness will block clients registering or sending payload channels containing any of these keywords
   payload:
     - "Remix"
     - "CRYSTAL"
@@ -94,94 +178,56 @@ client_settings:
     - "WDL|CONTROL"
     - "Bspkrs Client"
 
-  # Darkness will blacklist specific Forge versions that include built-in Reach hacks (Forge 1.18.2 - 1.19.3).
-  # Setting this to false will allow these clients to connect to the server.
-  # Use at your own risk.
+  # Darkness will blacklist specific Forge versions that include built-in Reach hacks (Forge 1.18.2 - 1.19.3)
+  # Setting this to false will allow these clients to connect to the server (Use at your own risk)
   disconnect_blacklisted_forge_versions: true
 
-# Packet Settings
-packet_settings:
+# Should experimental checks be enabled?
+# If this setting is disabled, experimental checks will not check players
+experimental_checks: false
 
-  # Maximum number of skipped transactions before the player is kicked
-  # Triggers on FreeCam, BackTrack, Blink
-  transaction_skip: 400
-  # How much time players have before being kicked due to timeout? Default = 45 seconds
-  transaction_time: 45
-  # Maximum allowed negative timer offset of the player before kicking (in milliseconds)
-  # Triggers on Timer (0.1), Freeze
-  negative_timer: 5000
-  # Kicks for sending packets with an impossible position
-  invalid_packet_position: true
-  # Kicks for sending invalid view angles that create an identical movement pattern
-  invalid_packet_rotation: true
-  # This setting applies only to clients 1.17–1.20.5 on 1.8 servers
-  cancel_duplicate_packet: true
-  # Should rotation be ignored in duplicate packets?
-  ignore_duplicate_packet_rotation: true
-  # Enable this to prevent Darkness from cancelling pong packets received from players
-  # Can improve compatibility with other anti-cheats. May cause issues with packet limiters
-  # Do not enable this if you are unsure what you are doing
-  disable_pong_cancelling: false
-  # Darkness sometimes cancels illegal packets, e.g., with Timer, after X cancelled packets per second
-  # Should we just kick the player instead? This is needed because some packet limiters don’t account for packets cancelled by Darkness
-  packet_spam_threshold: 100
-  # Darkness is able to enforce that a player set out of flying state cannot have more than X milliseconds of ping
-  # This is due to Darkness not currently checking flying players
-  max_ping_out_of_flying: 300
-  # Maximum ping when a firework boost is removed from the player.
-  # This prevents high latency players from being able to use 1 firework boost with an elytra forever.
-  max_ping_firework_boost: 1000
+# Should we disable the bypass permission?
+# If enabled, Darkness will check all players, including operators
+# Disable this for some performance gain
+disable_bypass_permission: false
 
-## Connection Settings
-connection_settings:
+# Enable logging plugins that have injected into Netty on join to debug compatibility issues
+debug_pipeline_on_join: false
 
-  # If true, the server will hold or cancel packets if the player starts lagging.
-  force_hold_server_packets: true
+# Alert Settings
+alerts:
 
-  # Transaction response delay after which a player is considered to be lagging.
-  enforce_latency_ms: 500
+  # In addition to broadcasting alerts to players, should they also be sent to the console?
+  print_to_console: true
 
-  # How many seconds can pass without movement packets before Darkness issues a flag?
-  enforce_flying_second: 4
+  # Proxy Alert Settings
+  # Controls whether/how alerts are shared between servers connected to your proxy
+  # You must have 'bungee-plugin-message-channel' enabled in your Velocity configuration if Velocity is in use
+  proxy:
 
-  # Should hits be cancelled if the player is experiencing severe network lag?
-  cancel_hits: true
+    # Should alerts be sent to other servers connected to your proxy?
+    send: false
 
-  # Enable this to block player movement processing if their latency exceeds the limits.
-  block_movement: true
+    # Should alerts received from other servers be announced to this server?
+    receive: false
 
-  # If true, the server will stop sending world data (entity movement, blocks) to the lagging player.
-  cancel_outbound_packets: false
+# Verbose Alert Settings
+verbose:
 
-# Punishment command settings // Not recommended for use - will be removed soon
-point_command:
-
-  # Commands that will be executed under various conditions (e.g., violations)
-  '1': darkness rotate %PLAYER%
-  '2': darkness shuffle %PLAYER% many
-  '3': darkness rotate %PLAYER%
-  '4': darkness shuffle %PLAYER% many
-  '6': darkness kick %PLAYER% &cSuspicion of using cheats
-  '7': darkness crash %PLAYER% particle
-  '8': darkness kick %PLAYER% &cSuspicion of using cheats
-  '9': darkness ban %PLAYER% &cSuspicion of using cheats
-  '21': darkness kick %PLAYER% &cSuspicion of using cheats
-  '26': darkness kick %PLAYER% &cSuspicion of using cheats
-  '30': darkness ban %PLAYER% &cSuspicion of using cheats
-  '34': darkness kick %PLAYER% &cSuspicion of using cheats
-  '38': darkness ban %PLAYER% &cSuspicion of using cheats
+  # Should verbose debug messages be printed to the console?
+  print_to_console: false
 
 # Punish Command Settings
 punish_command:
 
-  # What Punish Animation Should Darkness display before executing the below command?
-  # Animations: NONE, THOR, FIRE, ERROR, SHAME or RANDOM to let it choose a random animation each time
+  # What punish animation should Darkness display before executing the below command?
+  # Animations: NONE, THOR, FIRE, ERROR, SHAME, FLAME, BURN or RANDOM to let it choose a random animation each time
   animation: NONE
 
-  # Should we broadcast in chat when a player gets punished by Darkness?
+  # Should Darkness broadcast in chat when a player gets punished?
   broadcast: true
 
-  # What command should Darkness execute once the Punish Animation ends? (%nl% for new line)
+  # What command should Darkness execute once the punish animation ends? (%nl% for new line)
   # Placeholders: %prefix% -> (Darkness Prefix), %player% -> (The player that got punished), %reason% -> (The reason provided by the Darkness punish command)
   command: darkness kick %player% %prefix% %reason%
 
@@ -197,90 +243,44 @@ punishwave:
   # Should Darkness broadcast this event?
   broadcast: true
 
-  # How often should the Punish Wave be executed? (in minutes)
+  # How often should the Punish Wave be executed? (In minutes)
   time: 15
 
-  # Countdown before executing the Punish Wave (-1 to disable)
+  # The countdown before executing the Punish Wave (-1 to disable)
   countdown: 5
 
-# Ban Command Settings
-ban_command:
+# Compatibility Settings
+compatibility:
 
-  # Should we broadcast in chat when a player gets punished by Darkness?
-  broadcast: true
+  # Enable if you have a cross-platform project (Geyser / Floodgate)
+  # This will exclude Bedrock players from certain checks to avoid false positives
+  geyser: true
 
-  # Placeholders: %player% -> (The player that got punished), %reason% -> (The reason provided by the Darkness punish command)
-  command: ban %player% %reason%
+  # Enable if you allow the ItemsScroller mod
+  # This will prevent false positives during fast item movement
+  itemsScroller: false
 
-# Discord Sync Settings
-discord:
+  # Enable if you allow the TapeMouse mod
+  # This will prevent flags on AFK farms where hits occur at the same timing
+  tapeMouse: false
 
-  # Would you like to Sync Darkness to your Discord Server?
-  enabled: false
+  # Enable if you allow key macros
+  # This will help avoid false positives when entering commands while walking
+  keybind: false
 
-  # Insert the Channel Webhook URL
-  webhook_url: ""
-  # Message title
-  embed_title: "**:fire: NEW CHEATER DETECTED!**"
-  # Color of the stripe on the left side of the message
-  embed_color: "#ff0000"
+  # Should cinematic camera be taken into account?
+  # Highly recommended to keep this disabled as it makes aim checks less effective
+  # In a real combat scenario, no player will fight using cinematic camera
+  account_cinematic: false
 
-  # Message content
-  violation_content:
-    - "%player%"
-    - ""
-    - ":shield: **Server Name:**"
-    - "%server_name%"
-    - ""
-    - ":package: **Cheat Type:**"
-    - "%check%"
-    - ""
-    - ":bar_chart: **VL**"
-    - "%violations%"
-    - ""
-    - ":desktop: **Client:**"
-    - "%brand%"
-    - ""
-    - ":pushpin: **Version:**"
-    - "%version%"
-    - ""
-    - ":signal_strength: **PING | TPS:**"
-    - "%ping% | %tps%"
+# Database Settings
+database:
 
-  # Would you like Darkness to send Discord Messages
-  # When players get punished from the Punish Wave?
-  punishwave: false
-  punishwave_title: "**:fire: A WAVE OF NEW CHEATERS DETECTED!**"
+  # What type of Database should Darkness use for logging?
+  # Supported types: SQLITE, MYSQL, MARIADB
+  type: SQLITE
 
-  # Message content
-  punishwave_content:
-    - ":shield: **Server**"
-    - "%server_name%"
-    - ""
-    - ":busts_in_silhouette: **Players Punished**"
-    - "%players_punishwave%"
-    - ""
-
-  # Title of the additional field in the embed
-  embed_field: "Information:"
-
-# Log Settings
-logs:
-
-  # What type of logging should Darkness use?
-  # Types: YAML_ONE, YAML_DAYS, MYSQL, SQLITE, NONE
-  # 1. YAML_ONE - Logs all flags into a single file data.yml
-  # 2. YAML_DAYS - Logs each day into a separate file inside the logs folder
-  # 3. SQLITE - Logs into SQLite database
-  # 4. MYSQL - Logs into MySQL database
-  # 5. NONE - Disables logging
-  # Changes are applied only after a server restart.
-  type: YAML_ONE
-
-  # Logs older than this value of Days will be cleared
-  clear_days: 7
-
-  # MySQL Settings (Requires MySQL Type)
+  # MySQL / MariaDB Settings (Requires MYSQL or MARIADB type)
   mysql:
     host: localhost
     port: 3306
@@ -289,263 +289,94 @@ logs:
     password: ''
     use_ssl: false
 
-    # MySQL Connection Pool Settings
+    # HikariCP Connection Pool Settings
     # Do not change unless you know what you're doing
     pool_settings:
-      maximum_pool_size: 50
-      minimum_idle: 30
+      maximum_pool_size: 15
+      minimum_idle: 5
       maximum_lifetime: 1800000
       connection_timeout: 30000
       leak_detection_threshold: 0
 
-## InformationHider Check
-InformationHider:
+# Log Settings
+logs:
 
-  # Enable the info-hiding module?
-  enabled: true
+  # Storage mode: DATABASE, YAML_DAYS, YAML_ONE, NONE
+  storage: DATABASE
 
-  # Check only players or all entities?
-  onlyForPlayers: true
+  # Logs older than this value of Days will be cleared by Darkness
+  clear_days: 7
 
-  # Hides data about players/mobs to block cheat clients from getting extra info.
-  # Regular players won't notice, but cheats will suffer.
-  parts:
-    # Spoofs health - players and mobs always show spoofed health
-    # Useful against health bars in mods and cheats
-    health:
-      # Specify the value Darkness should spoof for players from 0 to 20.
-      # A value of 0 will break many KillAura hacks, but also breaks walking animations.
-      # Not recommended if you don't want players to walk like they're "moonwalking".
-      # Set to -1 to completely disable this module
-      value: 20
-      # If enabled, a random value from 0 to 20 will be used.
-      # Less noticeable to players and better preserves gameplay.
-      random: false
+# Trust Factor Settings
+trust:
 
-    # Mask internal player data to prevent cheat modules from utilizing it.
-    # Hides the real experience level to prevent it from being displayed in cheats.
-    xp: true
-    # Hides the oxygen level to prevent cheats from displaying the exact amount of air.
-    air: true
-    # Hides the hunger level. Breaks AutoEat functions in cheat clients.
-    saturation: true
-    # Hides absorption golden hearts from golden apples and status effects.
-    absorption: true
-    # Hides the real ping in the tab list. Prevents certain bypasses in AntiBot modules.
-    ping: true
-    # Hides the game mode. Cheats will always see the player in Creative.
-    gamemode: true
-    # Sends a spoofed world seed to prevent cheats from locating ores and structures.
-    seed: true
+  # Storage mode: DATABASE, NONE
+  storage: DATABASE
 
-    # Hides health and statistics data from scoreboards and the tab list.
-    # Replaces real HP values in the player list with fake ones.
-    scoreboard:
-      # Should health be masked in scoreboards and the tab list?
-      # If InformationHider.parts.health.value is set to -1, this module will be disabled.
-      enabled: true
-      # List of scoreboard objective name patterns to intercept.
-      # Darkness looks for these keywords in objective names to identify where HP is displayed.
-      patterns:
-        - "health"
-        - "hp"
-        - "hearts"
-        - "TAB-BelowName"
-        - "TAB-Sidebar"
-        - "TAB-TabList"
+# Packet Settings
+# Advanced packet thresholds, network checks and timing safeguards
+packet_settings:
 
-    # Masks equipment and character visual effects.
-    # Hides enchantments on armor and items so cheats cannot see their type or level.
-    enchant: true
-    # Hides the exact count of items in hands and inventory.
-    item_count: true
-    # Replaces actual item names in hands with randomized ones.
-    item_name: true
-    # Hides the names and quantities of items dropped on the ground.
-    item_drop: true
-    # Always shows full item durability to prevent cheats from seeing armor wear.
-    durability: true
-    # Hides potion effects from others (prevents seeing Strength, Speed, etc.).
-    potion: true
-    # Hides the potion type in hands, offhand, or arrows.
-    potion_items: true
-    # Spams the cheat with spoofed effect packets, completely cluttering its PotionList with trash.
-    end_effect: true
+  # Maximum number of skipped transactions before the player is kicked
+  # Triggers on FreeCam, BackTrack, Blink
+  transaction_skip: 400
 
-    # Modifies the server brand on Minecraft’s debug screen (F3).
-    # Useful for displaying custom messages or hiding your server software.
-    server_brand:
-      # Enable server brand spoofing?
-      enabled: true
-      # Brand name visible to clients upon connection and on the F3 screen
-      brand: "Server"
+  # How many seconds players have before being kicked due to transaction timeout?
+  # Default: 45 (Allowed range: 1 to 180)
+  transaction_time: 45
 
-    # Conceals players behind walls and blocks on the packet level.
-    # Breaks ESP, Tracers, and Wallhack functionality in cheat clients.
-    #
-    # PERFORMANCE:
-    # - In enclosed spaces (caves, arenas), this module REDUCES network and server load
-    #   because it stops sending movement packets for hidden players.
-    # - With a HIGH concentration of players in one area, block visibility checks
-    #   can cause increased CPU load.
-    esp:
+  # Maximum allowed negative timer offset of the player before kicking (in milliseconds)
+  # Triggers on Timer (0.1), Freeze
+  negative_timer: 5000
 
-      # Should players be hidden behind obstacles?
-      enabled: true
-      # Maximum distance (in blocks) at which player visibility is checked.
-      # Lower values reduce server load.
-      max_distance: 48.0
-      # Horizontal field of view (in degrees) used to decide whether a player is on screen.
-      # Increase this for ultrawide monitors; 180 disables sideways FOV misses.
-      max_fov: 165.0
-      # Safe radius (in blocks) around the player where everyone is always visible.
-      # Helps avoid rendering delay when a player suddenly peeks around a corner.
-      proximity_distance: 3.0
-      # Delay before hiding a player behind a wall (in ticks).
-      # Prevents model flickering around corners and smoothes out ping latency.
-      hide_delay_ticks: 5
-      # How often to recalculate player visibility (in ticks).
-      # Lower values decrease performance, higher values may cause
-      # players to remain hidden for too long and suddenly pop up.
-      interval_ticks: 2
-      # Should sound effects from players hidden behind walls be concealed?
-      hide_sounds: false
-      # Should glowing outlines be stripped from players behind walls?
-      hide_glowing: false
-      # Controls hiding behavior related to potion effects.
-      effects:
-        # Should players be hidden while the viewer has the blindness?
-        blindness: true
-        # Should players be hidden while the viewer has the darkness?
-        darkness: true
-        # Should players with invisibility effect be hidden from ESP when they have no held items and no armor?
-        # Potion swirl particles are still shown so vanilla visibility mechanics remain intact.
-        invisible: true
-      # Calculate line of sight for 3rd person camera perspectives (F5)?
-      # Prevents players from disappearing when peeking around corners.
-      calculate_third_person_modes: true
-      # By default, vanilla nametags are visible through walls unless sneaking.
-      # Setting this to false will hide all players behind walls regardless of sneaking.
-      # Setting this to true hides only sneaking players - saves CPU and preserves nametags.
-      only_sneaking: false
-      # List of blocks that players will not be hidden behind.
-      ignored_blocks:
-        - "barrier"
-        - "anvil"
-        - "air"
-        - "glass"
-        - "pane"
-        - "water"
-        - "bubble_column"
-        - "leaves"
-        - "fence"
-        - "trapdoor"
-        - "door"
-        - "lily_pad"
-        - "web"
-        - "ladder"
-        - "iron_bars"
-        - "bell"
-        - "slime_block"
-        - "honey_block"
+  # Should Darkness kick players for sending packets with an impossible position?
+  invalid_packet_position: true
 
-      # List of worlds where this module will be completely disabled.
-      disabled_worlds:
-        - ""
+  # Should Darkness kick players for sending invalid view angles that create an impossible movement pattern?
+  invalid_packet_rotation: true
 
-    # Shuffles inventory items while moving, breaking AutoTotem and InvWalk features in cheats.
-    inventory: true
-    # Momentarily hides all items when opening a container.
-    # Breaks ChestStealer logic by tricking the cheat into thinking it's closing an empty chest.
-    chest_loot: true
+  # Enable this to prevent Darkness from cancelling pong packets received from players
+  # Can improve compatibility with other anti-cheats, but may cause issues with packet limiters
+  disable_pong_cancelling: false
 
-    # Spams the cheat with fake totem pop packets.
-    # This breaks totem pop notifications in cheat clients.
-    totem:
+  # Maximum number of cancelled packets per second before kicking the player
+  # Helps prevent server overload from packet spam
+  packet_spam_threshold: 100
 
-      # Whether to break TotemPopCounter in cheats.
-      enabled: true
-      # Module mode:
-      # 1. duplicate - sends duplicate pop packets for the same player.
-      # 2. bot - spawns fake players underground at the moment of the pop.
-      mode: duplicate
-      # The number of fake packets or bots created per totem pop.
-      # Higher values create more screen clutter for the cheater and break software detection logic.
-      amount: 1
-      # Should fake bots be spawned in the tab list?
-      # If set to false, bots will only spawn in the world without disturbing legit players.
-      # Cheats will still detect totem pops, but bots won't clutter the tab list.
-      # Only works if mode is set to BOT.
-      spawn_tab: true
-      # Specifies how many blocks below the player the fake totem bot will spawn.
-      # Only works if mode is set to BOT.
-      height: 15
+  # Maximum allowed ping (in milliseconds) when a player exits flying state
+  max_ping_out_of_flying: 300
 
-    # This module creates fake staff members in the tab list to hide real moderators from cheats.
-    # Don’t worry these bots exist only on the cheat client side, real players can’t see them.
-    fake_staff:
-      # Should we create fake bots to mask real staff members?
-      enabled: true
-      # If true, Darkness will always generate bots with random names.
-      # Helps with compatibility on some servers but can sometimes bypass StaffList checks.
-      only_random_name: false
-      # Specify the real staff prefixes that will be shown on fake bots.
-      roles:
-        - "&cAdmin"
-        - "&cStaff"
-        - "&cHelper"
-        - "&cModer"
-      # Recommended to set bots >= 60 to prevent cheats from detecting real moderators.
-      bots: 60
+  # Maximum allowed ping when a firework boost is removed from an elytra-flying player
+  # Prevents high-latency players from maintaining firework boost indefinitely
+  max_ping_firework_boost: 1000
 
-    # Spectator settings (requires permission: darkness.spectator)
-    spectators:
-      # Only hide spectators in these worlds. Leave empty to allow all worlds
-      allowed_worlds:
-        - ""
-      # Hide all spectators with darkness.spectator permission, regardless of activity.
-      hide_spectators: true
+  # Active item usage reset settings (prevents desync)
+  reset_item_usage:
 
-# Compatibility Settings
-compatibility:
+    # Reset when an item or inventory update occurs (helps prevent NoSlow desync)
+    on_item_update: true
 
-  # Enable if you have a cross-platform project. This will exclude Bedrock players
-  # from checks to avoid false positives.
-  geyser: true
+    # Reset when attacking an entity (helps prevent AutoBlock desync)
+    on_attack: true
 
-  # Enable if you allow the ItemsScroller mod. This will prevent false
-  # positives during fast item movement.
-  itemsScroller: false
+    # Reset when switching hotbar slots
+    on_slot_change: true
 
-  # Enable if you allow the TapeMouse mod. This will prevent flags
-  # on AFK farms where hits occur at the same timing.
-  tapeMouse: false
+    # Reset when using an item
+    on_item_use: true
 
-  # Enable if you allow key macros. This will help avoid false
-  # positives when entering commands while walking.
-  keybind: false
-
-  # Should cinematic camera be taken into account?
-  # Highly recommended to keep this disabled as it makes aim checks less effective.
-  # In a real combat scenario, no player will fight using cinematic camera.
-  account_cinematic: false
-
-# Enable logging plugins who have injected into netty on join to debug compatibility issues
-debug_pipeline_on_join: false
-
-# Enables experimental checks
-experimental_checks: false
-
-# A logger for monitoring packets sent by players, useful for developers.
+# Packet Logger Settings
+# A logger for monitoring packets sent by players, useful for developers
 packet_logger:
+
+  # Should we enable the packet logger?
   enabled: false
 
-  # Specify the players below whose packets will be logged to the console.
+  # Specify the players below whose packets will be logged to the console
   whitelist:
     - 1hendex
 
-  # List of packets to ignore.
-  # To find the correct names, open the PacketEvents GitHub and look for the names.
+  # List of packets to ignore during logging
   # Path: https://github.com/retrooper/packetevents/blob/2.0/api/src/main/java/com/github/retrooper/packetevents/protocol/packettype/PacketType.java
   ignore:
     - WINDOW_CONFIRMATION
@@ -554,33 +385,14 @@ packet_logger:
     - PONG
     - CLIENT_TICK_END
 
-# The server name that will be shown in Player Logs and Discord Messages
-server_name: Darkness Server
-
-# Specify the name or names for the Darkness commands.
-# The first name in the list will become the main command of the plugin.
-# Changes are applied only after a server restart.
-command_name: darkness,dl
-
-# Should we disable the bypass permission?
-# If enabled, Darkness will check all players, including operators
-# Disable this for some performance gain
-disable_bypass_permission: false
-
-proxy:
-  # Enable if your server is located in the Russia and cannot connect to the licensing system.
-  enabled: false
-
-  # Proxy settings.
-  # Types: http, socks4, socks5
-  protocol:
-    type: socks5
-    host: ""
-    port: 0
-    username: ""
-    password: ""
-
+# Configuration Settings
 config:
+
+  # Should we check for configuration updates on startup?
   checks_updates: true
+
+  # Configuration language
   lang: en
-  version: 4
+
+  # Internal configuration version
+  version: 5

@@ -12,18 +12,18 @@
 prefix: "&x&8&8&0&0&0&0&l&oD&x&A&C&0&2&0&2&l&oa&x&C&F&0&4&0&4&l&or&x&E&F&0&3&0&3&l&ok&x&D&E&0&2&0&2&l&on&x&9&C&0&0&0&0&l&oe&x&7&D&0&0&0&0&l&os&x&6&A&0&0&0&0&l&os §8|"
 theme_author: 1hendex
 
-add_point_success: "%prefix% &cДодано 1 бал для гравця %player%"
 alerts_disabled: "%prefix% &fОповіщення вимкнено"
 alerts_enabled: "%prefix% &fОповіщення увімкнено"
 bot_already_spawned: "%prefix% &fБот вже був заспавнений для цього гравця"
 bot_spawned: "%prefix% &fВи заспавнили бота для &7%player%"
+broadcast: "%prefix% &cГравець &6&l%player%&r &cбув вигнаний за використання читів!"
 cannot_run_on_self: "%prefix% &cВи не можете використовувати цю команду на собі!"
 cannot_spectate_return: "%prefix% &cВи можете зробити це тільки після спостереження за гравцем"
 cant_execute_from_console: "%prefix% &cЦя команда доступна лише для гравців!"
 client_brand_format: "%prefix% &f%player% приєднався, використовуючи %brand%"
 client_brand_kick: "&c%brand% &fне дозволено на цьому сервері!"
 console_specify_target: "%prefix% &cВи повинні вказати ціль у консолі!"
-cps_action_bar: "&e⚡ &fГравець: &c%player%&f, CPS: &c%cps%"
+cps_action_bar: "&e⚡ &fГравець: &c%player%&f, CPS: &c%cps%&f, DC: %double_click%"
 cps_disabled: "%prefix% &fВідображення CPS &cвимкнено"
 cps_enabled: "%prefix% &fВідображення CPS &aувімкнено"
 crash_invalid_mode: "%prefix% &cНевідомий метод! Використовуйте entity, particle, position, explosion, demo, lag!"
@@ -45,7 +45,6 @@ punishwave_punished: "%prefix% &c%count% &fгравців були покара�
 reload_failed: "%prefix% &cНе вдалося перезавантажити конфігурацію. (Деталі в консолі)"
 reload_success: "%prefix% &fЯ була перезавантажена!"
 reloading: "%prefix% &7Перезавантаження конфігурації..."
-reset_points_success: "%prefix% &cБан-бали скинуті для гравця %player%"
 rotate_success: "%prefix% &cУспішно повернуто гравця %player%"
 run_as_player: "%prefix% &cThis command can only be used by players!"
 run_as_player_or_console: "%prefix% &cThis command can only be used by players or the console!"
@@ -62,6 +61,19 @@ unknown_command: "%prefix% &cНевідома команда!"
 unsupported_version: "%prefix% &cЦя функція не підтримується поточною версією сервера!"
 verbose_disabled: "%prefix% &fVerbose вимкнено"
 verbose_enabled: "%prefix% &fVerbose увімкнено"
+
+trust:
+  add_success: "%prefix% &fГравцю &c%player% &fдодано &c%points% &fтраст-балів &8(&7Всього: &f%total%&7, Рівень: %color%%level%&8)"
+  remove_success: "%prefix% &fУ гравця &c%player% &fзнято &c%points% &fтраст-балів &8(&7Всього: &f%total%&7, Рівень: %color%%level%&8)"
+  set_success: "%prefix% &fГравцю &c%player% &fвстановлено &c%points% &fтраст-балів &8(&7Рівень: %color%%level%&8)"
+  clear_success: "%prefix% &fВсі траст-бали скинуті для гравця &c%player%"
+  info_header: "%prefix% &7Інформація про TrustFactor гравця &c%player%&7:"
+  info_points: " &8» &7Бали: &f%points%"
+  info_level: " &8» &7Рівень: %color%%level%"
+  info_score: " &8» &7Рахунок довіри: &f%score%&8/&7100"
+  info_banned: " &8» &7Заблокований: %status%"
+  status_yes: "&cТак"
+  status_no: "&aНі"
 
 disconnect:
   timeout: "<lang:disconnect.timeout>"
@@ -186,13 +198,6 @@ checks_command:
     disabled: "&c%checkName%%experimental%"
     exempted: "&e%checkName%%experimental%"
 
-# Плейсхолдери: %prefix% -> (Префікс Даркнесс), %player% -> (Гравець, який був покараний), %reason% -> (Причина, вказана в команді покарання Гріма)
-broadcast:
-  kick:
-    - "%prefix% &cГравець &6&l%player%&r &cбув вигнаний за використання читів!"
-  ban:
-    - "%prefix% &cГравець &6&l%player%&r &cбув забанений за використання читів!"
-
 help:
   - ' '
   - '%prefix% &7Список доступних команд Darkness'
@@ -209,9 +214,7 @@ help:
   - '&8» &c/darkness cps <player> &f- &7Відображення CPS гравця.'
   - '&8» &c/darkness kick <player> <reason> &f- &7Вигнати гравця з сервера.'
   - '&8» &c/darkness punish <player> <reason> &f- &7Покарати гравця за використання читів.'
-  - '&8» &c/darkness ban <player> <reason> &f- &7Забанити гравця на сервері.'
-  - '&8» &c/darkness addpoint <player> &f- &7Видати бан-поінт гравцю.'
-  - '&8» &c/darkness resetpoints <player> &f- &7Скинути всі бан-поінти гравця.'
+  - '&8» &c/darkness trust <add|remove|set|clear|info> <player> [value] &f- &7Керування TrustFactor гравця.'
   - '&8» &c/darkness topvl &f- &7Переглянути список гравців із найбільшою кількістю порушень.'
   - '&8» &c/darkness checks &f- &7Переглянути всі активні перевірки Darkness.'
   - '&8» &c/darkness shuffle <player> <method> &f- &7Перемішати слоти гравця.'
@@ -227,4 +230,4 @@ help:
 messages:
   checks_updates: true
   lang: uk
-  version: 4
+  version: 5
